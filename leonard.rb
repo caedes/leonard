@@ -1,21 +1,44 @@
-class Leonard
-  attr_accessor :facts, :rules
+module Leonard
+  class Fact
+    attr_accessor :name
 
-  def initialize
-    @facts = []
-    @rules = []
+    def initialize(name)
+      @name = name
+    end
   end
 
-  def add_fact(fact)
-    @facts << fact
+  class Rule
+    attr_accessor :conditions, :result
+
+    def initialize(conditions, result)
+      @conditions = conditions
+      @result = result
+    end
+
+    def has_fact(fact)
+
+    end
   end
 
-  def add_rule(conditions, result)
-    @rules << [conditions, result]
+  class Engine
+    attr_accessor :facts, :rules
+
+    def initialize
+      @facts = []
+      @rules = []
+    end
+
+    def add_fact(fact)
+      @facts << Leonard::Fact.new(fact)
+    end
+
+    def add_rule(conditions, result)
+      @rules << Leonard::Rule.new(conditions, result)
+    end
   end
 end
 
-l = Leonard.new
+l = Leonard::Engine.new
 
 # FACTS
 
