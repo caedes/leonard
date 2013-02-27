@@ -15,8 +15,8 @@ module Leonard
       @result = result
     end
 
-    def has_fact(fact)
-
+    def has_fact?(fact)
+      @conditions.include?(fact.class == Leonard::Fact ? fact.name : fact)
     end
   end
 
@@ -60,6 +60,11 @@ l.add_rule ['average_path'], 'discount_rent_100'
 l.add_rule ['high_path'], 'discount_rent_200'
 
 l.add_rule ['children', 'high_path'], 'discount_path_50'
+
+# Rule#has_fact?
+
+p l.rules.first.has_fact? 'no_child'
+p l.rules.first.has_fact? l.facts.first
 
 p l.facts
 p l.rules
