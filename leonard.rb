@@ -17,6 +17,8 @@ end
 
 l = Leonard.new
 
+# FACTS
+
 l.add_fact 'no_child'
 l.add_fact 'children'
 %w(low average high).each do |amount|
@@ -25,11 +27,16 @@ l.add_fact 'children'
   end
 end
 
+# RULES
+
 l.add_rule ['no_child'], 'discount_children_0'
 l.add_rule ['children'], 'discount_children_100'
-l.add_rule ['low_wage'], 'discount_rent_200'
-l.add_rule ['average_wage'], 'discount_rent_100'
-l.add_rule ['high_wage'], 'discount_rent_0'
+
+l.add_rule ['low_path'], 'discount_rent_0'
+l.add_rule ['average_path'], 'discount_rent_100'
+l.add_rule ['high_path'], 'discount_rent_200'
+
+l.add_rule ['children', 'high_path'], 'discount_path_50'
 
 p l.facts
 p l.rules
