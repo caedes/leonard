@@ -35,6 +35,10 @@ module Leonard
     def add_rule(conditions, result)
       @rules << Leonard::Rule.new(conditions, result)
     end
+
+    def checked_rule?(rule)
+      rule.conditions.sort == rule.conditions.sort & @facts.map(&:name).sort
+    end
   end
 end
 
@@ -65,6 +69,10 @@ l.add_rule ['children', 'high_path'], 'discount_path_50'
 
 p l.rules.first.has_fact? 'no_child'
 p l.rules.first.has_fact? l.facts.first
+
+# Engine#check_rule
+
+p l.checked_rule? l.rules.last
 
 p l.facts
 p l.rules
